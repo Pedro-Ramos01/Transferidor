@@ -1,6 +1,7 @@
 import sqlite3
 import pandas as pd
 
+
 class TransferirDados:
     def __init__(self):
         # Leitura do arquivo de excel

@@ -40,9 +40,21 @@ class TelaTransfereciaDados:
             return
         
         try:
+            transferidor = TransferirDados(self.caminho)
+            transferidor.CriarTabela()
+            transferidor.CopiarDados()
+
+            messagebox.showinfo(f"Sucesso, Dados transferidos com sucesso!")
+
+        except Exception as e:
+            messagebox.showerror(f"Erro, Ocorreu um erro:\n{str(e)}")
     
+        botao_executar = tk.Button(self.janela, command=TelaTransfereciaDados().executar_transferencia)
+        botao_executar.pack(pady=20)
+
 
 
 if __name__ == '__main__':
     tela = TelaTransfereciaDados()
     tela.selecionar_arquivo()
+    tela.executar_transferencia()

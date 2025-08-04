@@ -11,7 +11,20 @@ class TelaTransfereciaDados:
         self.janela.title('Processador de arquivo Excel')
         self.janela.geometry('400x200')
         self.caminho = ''
-    
+
+        # Rotulo para mostrar arquivo selecionado
+        self.label_arquivo = tk.Label(self.janela, text='Nenhum arquivo selecionado.', 
+                                 wraplength=380, 
+                                 justify='center')
+        self.label_arquivo.pack(pady=10)
+
+        # Botão para executar a transferência
+        self.botao_selecionar = tk.Button(self.janela, text='Buscar',
+                                     command= self.selecionar_arquivo)
+        self.botao_selecionar.pack(pady=5)
+        self.botao_executar = tk.Button(self.janela, command=self.executar_transferencia)
+        self.botao_executar.pack(pady=20)
+
     # Função para selecionar o arquivo Excel
     def selecionar_arquivo(self):
         self.caminho = filedialog.askopenfilename(
@@ -19,20 +32,11 @@ class TelaTransfereciaDados:
             filetypes=[('Arquivos Excel','*.xlsx *.xls' )]
         )
         if self.caminho:
-            label_arquivo.config(text=f'Arquivo selecionado:\n{os.path.basename(self.caminho)}')
+            self.label_arquivo.config(text=f'Arquivo selecionado:\n{os.path.basename(self.caminho)}')
         else:
-            label_arquivo.config(text='Nenhum arquivo selecionado')
+            self.label_arquivo.config(text='Nenhum arquivo selecionado')
 
-        # Rotulo para mostrar o nome do arquivo selecionado
-        label_arquivo = tk.Label(self.janela, text='Nenhum arquivo selecionado.', 
-                                 wraplength=380, 
-                                 justify='center')
-        label_arquivo.pack(pady=10)
 
-        botao_selecionar = tk.Button(self.janela, text='Buscar',
-                                     command= TelaTransfereciaDados().selecionar_arquivo)
-        botao_selecionar.pack(pady=5)
-    
     # Função que executa a transferencia de dados
     def executar_transferencia(self):
         if not self.caminho:
@@ -48,13 +52,8 @@ class TelaTransfereciaDados:
 
         except Exception as e:
             messagebox.showerror(f"Erro, Ocorreu um erro:\n{str(e)}")
-    
-        botao_executar = tk.Button(self.janela, command=TelaTransfereciaDados().executar_transferencia)
-        botao_executar.pack(pady=20)
 
 
 
 if __name__ == '__main__':
-    tela = TelaTransfereciaDados()
-    tela.selecionar_arquivo()
-    tela.executar_transferencia()
+    TelaTransfereciaDados()

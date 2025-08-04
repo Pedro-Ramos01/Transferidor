@@ -5,7 +5,7 @@ import pandas as pd
 class TransferirDados:
     def __init__(self):
         # Leitura do arquivo de excel
-        self.dados = r'C:\db teste\dados_pessoas.xlsx'
+        self.dados = r''
         self.leitor = pd.read_excel(self.dados)
 
         # Conector do banco de dados em sqlite

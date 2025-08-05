@@ -79,4 +79,6 @@ class TelaTransferenciaDados:
 
 
 if __name__ == '__main__':
-    TelaTransferenciaDados()
+    print("interface iniciada")
+    tela = TelaTransferenciaDados()
+    tela.janela.mainloop()

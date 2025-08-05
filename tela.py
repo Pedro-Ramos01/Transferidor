@@ -5,7 +5,7 @@ from tkinter import messagebox
 from transferidor import TransferirDados
 
 # Criação da janela principal
-class TelaTransfereciaDados:
+class TelaTransferenciaDados:
     def __init__(self):
         self.janela = tk.Tk()
         self.janela.title('Processador de arquivo Excel')
@@ -19,12 +19,18 @@ class TelaTransfereciaDados:
         self.label_arquivo.pack(pady=10)
 
         # Adicionar nome ao banco
-        self.labe_nome_banco = tk.Label(self.janela, text="Nome do banco de dados (.db)")
-        self.labe_nome_banco.pack(pady=5)
+        self.label_nome_banco = tk.Label(self.janela, text="Nome do banco de dados (.db)")
+        self.label_nome_banco.pack(pady=5)
 
         self.entry_nome_banco = tk.Entry(self.janela)
-        self.entry_nome_banco.insert(0, )
         self.entry_nome_banco.pack(pady=5)
+
+        # Campo para adicionar nome a tabela
+        self.label_nome_tabela = tk.Label(self.janela, text='Nome da tabela')
+        self.label_nome_tabela.pack(pady=5)
+
+        self.entry_nome_tabela = tk.Entry(self.janela)
+        self.entry_nome_tabela.pack(pady=5)
 
         # Botão para executar a transferência
         self.botao_selecionar = tk.Button(self.janela, text='Buscar',
@@ -48,20 +54,29 @@ class TelaTransfereciaDados:
     # Função que executa a transferencia de dados
     def executar_transferencia(self):
         if not self.caminho:
-            messagebox.showwarning("Aviso", 'Por favor, selecione um arquivo Excel antes de executar.' )
+            messagebox.showwarning('Aviso' ,'Por favor, selecione um arquivo Excel antes de executar.' )
             return
         
+        nome_banco = self.entry_nome_banco.get().strip()
+        if not nome_banco.endswith('.db'):
+            nome_banco += '.db'
+        
+        nome_tabela = self.entry_nome_tabela.get().strip()
+        if not nome_tabela:
+            messagebox.showwarning("Aviso", "Por favor, informe o nome da tabela.")
+            return
+
         try:
-            transferidor = TransferirDados(self.caminho)
+            transferidor = TransferirDados(self.caminho, nome_banco, nome_tabela)
             transferidor.CriarTabela()
             transferidor.CopiarDados()
 
-            messagebox.showinfo(f"Sucesso, Dados transferidos com sucesso!")
+            messagebox.showinfo(f"Sucesso", "Dados transferidos com sucesso!")
 
         except Exception as e:
-            messagebox.showerror(f"Erro, Ocorreu um erro:\n{str(e)}")
+            messagebox.showerror(f"Erro", "Ocorreu um erro:\n{str(e)}")
 
 
 
 if __name__ == '__main__':
-    TelaTransfereciaDados()
+    TelaTransferenciaDados()

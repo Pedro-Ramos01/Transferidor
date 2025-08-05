@@ -1,10 +1,8 @@
 import sqlite3
 import pandas as pd
-from tela import TelaTransfereciaDados
-
 
 class TransferirDados:
-    def __init__(self, caminho, nome_banco):
+    def __init__(self, caminho, nome_banco, nome_tabela):
         # Leitura do arquivo de excel
         self.dados = caminho
         self.leitor = pd.read_excel(self.dados)
@@ -13,9 +11,13 @@ class TransferirDados:
         self.conn = sqlite3.connect(nome_banco)
         self.cursor = self.conn.cursor()
 
+        # Dar nome a tabela
+        self.nome_tabela = nome_tabela
+
+
     def CriarTabela(self):
         # Executor do comando de CREATE sql
-        self.cursor.execute(''' CREATE TABLE IF NOT EXISTS alunos(
+        self.cursor.execute(f''' CREATE TABLE IF NOT EXISTS {self.nome_tabela}(
                             id INTEGER PRIMARY KEY AUTOINCREMENT,
                             nome TEXT,
                             idade INTEGER,
@@ -27,8 +29,8 @@ class TransferirDados:
         # For passando pelo arquivo de excel
         for index, row in self.leitor.iterrows():
             # Executando o INSERT sql para selecionar os dados que queira inserir, row's para inserir de acordo com o for
-            self.cursor.execute('''
-                                INSERT INTO alunos (nome, idade, email)
+            self.cursor.execute(f'''
+                                INSERT INTO {self.nome_tabela} (nome, idade, email)
                                 VALUES (?, ?, ?)
                                 ''', 
                                 (row['Nome'], row['Idade'], row['Email'])
@@ -37,7 +39,3 @@ class TransferirDados:
         self.conn.commit()
         self.conn.close()
 
-if __name__ == '__main__':
-    transferidor = TransferirDados()
-    transferidor.CriarTabela()
-    transferidor.CopiarDados()

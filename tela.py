@@ -13,14 +13,18 @@ class TelaTransfereciaDados:
         self.caminho = ''
 
         # Rotulo para mostrar arquivo selecionado
-        self.label_arquivo = tk.Label(self.janela, text='Nenhum arquivo selecionado.', 
+        self.label_arquivo = tk.Label(self.janela, text='Nenhum arquivo selecionado.',                          
                                  wraplength=380, 
                                  justify='center')
         self.label_arquivo.pack(pady=10)
 
         # Adicionar nome ao banco
-        self.nome_banco
+        self.labe_nome_banco = tk.Label(self.janela, text="Nome do banco de dados (.db)")
+        self.labe_nome_banco.pack(pady=5)
 
+        self.entry_nome_banco = tk.Entry(self.janela)
+        self.entry_nome_banco.insert(0, )
+        self.entry_nome_banco.pack(pady=5)
 
         # Botão para executar a transferência
         self.botao_selecionar = tk.Button(self.janela, text='Buscar',

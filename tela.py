@@ -9,7 +9,7 @@ class TelaTransfereciaDados:
     def __init__(self):
         self.janela = tk.Tk()
         self.janela.title('Processador de arquivo Excel')
-        self.janela.geometry('400x200')
+        self.janela.geometry('400x250')
         self.caminho = ''
 
         # Rotulo para mostrar arquivo selecionado
@@ -17,6 +17,10 @@ class TelaTransfereciaDados:
                                  wraplength=380, 
                                  justify='center')
         self.label_arquivo.pack(pady=10)
+
+        # Adicionar nome ao banco
+        self.nome_banco
+
 
         # Botão para executar a transferência
         self.botao_selecionar = tk.Button(self.janela, text='Buscar',

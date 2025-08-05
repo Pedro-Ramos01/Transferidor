@@ -1,15 +1,16 @@
 import sqlite3
 import pandas as pd
+from tela import TelaTransfereciaDados
 
 
 class TransferirDados:
-    def __init__(self):
+    def __init__(self, caminho, nome_banco):
         # Leitura do arquivo de excel
-        self.dados = r''
+        self.dados = caminho
         self.leitor = pd.read_excel(self.dados)
 
         # Conector do banco de dados em sqlite
-        self.conn = sqlite3.connect('alunos.db')
+        self.conn = sqlite3.connect(nome_banco)
         self.cursor = self.conn.cursor()
 
     def CriarTabela(self):
